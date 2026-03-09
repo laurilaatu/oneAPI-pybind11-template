@@ -3,6 +3,14 @@
 #Run:
 #docker run -p 127.0.0.1:8080:8080 -v /home/$USER/:/home/$USER/local -it oneapi-2025
 
+# Run with GPU support:
+# docker run -it \
+#  --device /dev/dri \
+#  --security-opt label=disable \
+#  -v /home/$USER/:/home/$USER/local \
+#  -p 8080:8080 \
+#  oneapi-2025
+
 # Inside the container:
 # source /opt/intel/oneapi/2025.3/oneapi-vars.sh --force
 # jupyter notebook --port=8080 --ip=0.0.0.0 --no-browser
@@ -19,8 +27,11 @@ RUN apt-get update && \
     apt-get install -y wget && \
     apt-get clean
 
-RUN userdel ubuntu
-RUN useradd -m $user -s /bin/bash
+# Ensure groups exist, delete ubuntu user, and create the new user in the video and render groups
+RUN userdel ubuntu || true
+RUN groupadd -f render && \
+    groupadd -f video && \
+    useradd -m $user -s /bin/bash -G video,render
 
 USER $user
 
