@@ -35,3 +35,14 @@ void sycl_matrix_multiply(const float* A, const float* B, float* C, int M, int K
     // Wait for the queue to finish executing before returning to Python
     q.wait();
 }
+
+
+void print_device() {
+
+    sycl::queue q(sycl::default_selector_v);
+
+    std::cout << "SYCL Selected Device: "
+              << q.get_device().get_info<sycl::info::device::name>() << "\n";
+    std::cout << "Is it a GPU? "
+              << (q.get_device().is_gpu() ? "Yes" : "No") << "\n";
+}

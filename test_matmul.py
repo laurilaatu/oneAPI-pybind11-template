@@ -12,6 +12,7 @@ def run_test():
     B = np.random.rand(K, N).astype(np.float32)
 
     # oneAPI SYCL Matmul
+    sycl_matmul.print_device()
     print("Running SYCL matrix multiplication...")
     start_time = time.time()
     C_sycl = sycl_matmul.matmul(A, B)

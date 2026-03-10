@@ -44,4 +44,5 @@ py::array_t<float> matmul_wrapper(
 PYBIND11_MODULE(sycl_matmul, m) {
     m.doc() = "SYCL-accelerated matrix multiplication using PyBind11";
     m.def("matmul", &matmul_wrapper, "Multiply two numpy arrays using oneAPI SYCL");
+    m.def("print_device", &print_device, "Print information about the selected SYCL device");
 }

@@ -3,5 +3,6 @@
 
 // Declare the SYCL matrix multiplication function
 void sycl_matrix_multiply(const float* A, const float* B, float* C, int M, int K, int N);
+void print_device();
 
 #endif // MATRIX_MULT_H
